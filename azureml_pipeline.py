@@ -48,56 +48,36 @@ def build_MLTable(config_dct):
             "keep_columns": cols_list
           },
           {
-              "convert_column_types": []
+              "convert_column_types": {}
           }
         ]
     }
     ## float columns
     if config_dct['data']['input_vars'].get('float') is not None:
       for col in config_dct['data']['input_vars']['float']['values']:
-        mltable_dct['transformations'][2]['convert_column_types'].append(
-          {
-            "columns": col,
-            "column_type": "float"
-          }
-        )
+        mltable_dct['transformations'][2]['convert_column_types'][col] = "float"
     ## int columns
     if config_dct['data']['input_vars'].get('int') is not None:
       for col in config_dct['data']['input_vars']['int']['values']:
-        mltable_dct['transformations'][2]['convert_column_types'].append(
-          {
-            "columns": col,
-            "column_type": "int"
-          }
-        )
+        mltable_dct['transformations'][2]['convert_column_types'][col] = "int"
     ## datetime columns
     if config_dct['data']['input_vars'].get('datetime') is not None:
       for col in config_dct['data']['input_vars']['datetime']['values']:
-        mltable_dct['transformations'][2]['convert_column_types'].append(
-        {
-            "columns": col,
-            "column_type": {
+        mltable_dct['transformations'][2]['convert_column_types'][col] = {
             "datetime": {
                 "formats": config_dct['data']['input_vars']['datetime']['formats']
             }
-          }
         }
-      )
     ## boolean columns
     if config_dct['data']['input_vars'].get('boolean') is not None:
       for col in config_dct['data']['input_vars']['boolean']['values']:
-        mltable_dct['transformations'][2]['convert_column_types'].append(
-         {
-            "columns": col,
-            "column_type": {
+        mltable_dct['transformations'][2]['convert_column_types'][col] = {
             "boolean": {
                 "mismatch_as": config_dct['data']['input_vars']['boolean']['mismatch_as'],
                 "true_values": config_dct['data']['input_vars']['boolean']['true_values'],
                 "false_values": config_dct['data']['input_vars']['boolean']['false_values']
-              }
             }
-         }
-      )
+        }
     return mltable_dct
         
 
